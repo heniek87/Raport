@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raport</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <script defer src="./js/main.js" type="module"></script>
+</head>
+
+<body>
+  <div class="content">
+    <ul>
+      <li><label for="start">Start: </label><input type="time" id="start"></li>
+      <li><label for="circleTime">Czas cyklu: </label><input type="number" step="0.1" value="60.0" id="circleTime"></li>
+      <li><label for="pcsInsideBox">W kartonie: </label><input type="number" id="pcsInsideBox" step="1" value="20"></li>
+      <li><label for="pcsZero">Zerowy: </label><input type="number" step="1" value="0" id="pcsZero"></li>
+      <li><label for="fullBoxes">Pełne kartony: </label><input type="number" step="1" value="0" id="fullBoxes"></li>
+      <li><label for="pcsInActBox">Aktualny karton: </label><input type="number" step="1" value="0" id="pcsInActBox">
+      </li>
+      <li><label for="scrap">Braki: </label><input type="number" step="0" value="0" id="scrap"></li>
+      <li><label for="breakTime">Czas postoju: </label><input type="number" step="1" value="0" id="breakTime"></li>
+      <li><label for="stop">Stop: </label><input type="time" id="stop"></li>
+    </ul>
+    <div class="out" id="out"></div>
+  </div>
+</body>
+
+</html>
