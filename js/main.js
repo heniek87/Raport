@@ -153,17 +153,52 @@ const setStartHandler = () => {
   count()
 }
 const setStopHandler = () => {
-  const { diff } = count()
-  stop.setMinutes(stop.getMinutes() - Math.floor(diff * circleTime / 60))
-  dom.stop.value = start.HI()
+
+  const { expected, actAll } = count()
+  console.log(stop.toJSON())
+  stop.setMinutes(stop.getMinutes() - Math.floor((expected - actAll) * circleTime / 60))
+  console.log(stop.toJSON())
+  dom.stop.value = stop.HI()
+
   count()
+
 }
 
-dom.scrap.previousSibling.addEventListener('click', setScrapsHandler)
-dom.breakTime.previousSibling.addEventListener('click', setBreakTimeHandler)
-dom.start.previousSibling.addEventListener('click', setStartHandler)
-dom.stop.previousSibling.addEventListener('click', setStopHandler)
+
+const holdEvent = (evt, cb) => {
+  console.log(evt)
+  let touched = true
+  let holded = false
+  evt.target.addEventListener('touchend', () => {
+    touched = false
+    if (!holded) {
+      evt.target.focus()
+      evt.target.click()
+
+    }
+  })
+  evt.preventDefault()
+  setTimeout(() => {
+
+    holded = true
+    if (touched) {
+      navigator?.vibrate(100)
+      cb()
+    }
+  }, 500)
+}
+
+
+dom.scrap.addEventListener('touchstart', (e) => holdEvent(e, setScrapsHandler))
+dom.breakTime.addEventListener('touchstart', e => holdEvent(e, setBreakTimeHandler))
+dom.start.addEventListener('touchstart', (e) => holdEvent(e, setStartHandler))
+dom.stop.addEventListener('touchstart', (e) => holdEvent(e, setStopHandler))
 // dom.scrap.previousSibling.addEventListener('touchstart', setScrapsHandler)
 
 
 count()
+window.onload = () => {
+
+  alert(`windowW:${window.innerWidth}`)
+  alert(`windowWa:${window.width}`)
+}
