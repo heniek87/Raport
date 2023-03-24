@@ -1,9 +1,6 @@
 const out = (dom, data) => {
 
-  dom.innerHTML = `
 
-  <pre>${JSON.stringify(data, ' ', 2)}</pre>
-  `
   document.querySelector('#result').innerHTML = `
 
   <div class="before">

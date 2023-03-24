@@ -9,7 +9,12 @@
   <title>Raport</title>
   <link rel="stylesheet" href="./css/fonts.css">
   <link rel="stylesheet" href="./css/main.css">
-
+  <link rel="manifest" href="./manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#111864">
+  <meta name="apple-mobile-web-app-title" content="Raport">
+  <link rel="apple-touch-icon" href="./ios/144.png">
+  <meta name="theme-color" content="#111864">
   <script defer src="./js/main.js" type="module"></script>
 </head>
 
@@ -210,6 +215,15 @@
     </div>
     <input type="number" tabindex="2" step="1" value="" id="circleTime">
   </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./bw.js')
+
+
+      });
+    }
+  </script>
   <!-- <div class="content">
 
 
