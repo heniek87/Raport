@@ -1,7 +1,28 @@
 const out = (dom, data) => {
 
   dom.innerHTML = `
+
   <pre>${JSON.stringify(data, ' ', 2)}</pre>
+  `
+  document.querySelector('#result').innerHTML = `
+
+  <div class="before">
+          <div class="before-1">
+
+            <div id="boxBefore">${data.lastBox - 1}</div>
+            <div id="boxBeforePcs">${data.pcsInsideBox}</div>
+          </div>
+          <div class="before-0">
+
+            <div id="boxLast">${data.lastBox}</div>
+            <div id="boxLastPcs">${data.lastBoxPcs}</div>
+          </div>
+        </div>
+        <div class="after">
+          <div class="all-pcs" id="allPcs">${data.all}</div>
+          <div class="diff ${data.diff > 0 ? 'red' : ''}" id="diffPcs">${data.diff == 0 ? '' : data.diff < 0 ? '+' + data.diff * -1 : data.diff * -1}</div>
+        </div>
+      </div>
   `
 }
 const countPcs = (start, stop, circleTime, pcsInsideBox, pcsZero, fullBoxes, pcsInActBox, scrap, breakTime) => {
@@ -31,6 +52,6 @@ const countPcs = (start, stop, circleTime, pcsInsideBox, pcsZero, fullBoxes, pcs
   // const pcsToEnd = expected -
 
 
-  return { expected, actAll, lastBox, lastBoxPcs, all, diff, before, toMake }
+  return { expected, actAll, lastBox, lastBoxPcs, all, diff, before, toMake, pcsInsideBox }
 }
 export { out, countPcs }

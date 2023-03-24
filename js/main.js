@@ -5,6 +5,7 @@ const dom = {
   start: d.querySelector('#start'),
   stop: d.querySelector('#stop'),
   circleTime: d.querySelector('#circleTime'),
+  circleTimeOut: d.querySelector('text#circleTimeOut'),
   pcsInsideBox: d.querySelector('#pcsInsideBox'),
   pcsZero: d.querySelector('#pcsZero'),
   fullBoxes: d.querySelector('#fullBoxes'),
@@ -40,6 +41,7 @@ const count = () => {
 
 //EVENTS
 const listen = (obj, hand) => {
+
   obj.addEventListener('change', hand)
   obj.addEventListener('input', hand)
 }
@@ -50,10 +52,14 @@ const changeStartHandler = evt => {
   start.setMinutes(minutes)
   start.setHours(hours)
   if (shift == 3) { // dokończyć dla 3 zmiany
-    if (hours < 7) {
-      start.setDate(new Date().getDate())
+    if (hours >= 22) {
+
+      if (new Date().getHours() >= 22) start.setDate(new Date().getDate())
+      else start.setDate(new Date().getDate() - 1)
+
     } else {
-      start.setDate(new Date().getDate() - 1)
+      if (new Date().getHours() >= 22) start.setDate(new Date().getDate() - 1)
+      else start.setDate(new Date().getDate())
 
     }
   }
@@ -65,11 +71,17 @@ const changeStopHandler = evt => {
   stop.setHours(hours)
   if (shift == 3) { // dokończyć dla 3 zmiany
     if (hours >= 22) {
-      stop.setDate(new Date().getDate())
+      if (new Date().getHours() >= 22) stop.setDate(new Date().getDate())
+      else stop.setDate(new Date().getDate() - 1)
+
+
     } else {
-      stop.setDate(new Date().getDate() + 1)
+      if (new Date().getHours() >= 22) stop.setDate(new Date().getDate() - 1)
+      else stop.setDate(new Date().getDate())
+
 
     }
+    console.log((hours >= 22), (new Date().getHours() >= 22), stop)
   }
   count()
 }
@@ -81,8 +93,16 @@ const breakTimeHandler = () => {
   count()
 }
 
-const circleTimeHandler = () => {
-  circleTime = parseFloat(dom.circleTime.value)
+const initCT = [6, 0, 0]//circle time array
+const circleTimeHandler = (evt) => {
+  initCT.push(parseFloat(dom.circleTime.value))
+  dom.circleTime.value = ''
+  initCT.shift()
+  console.log(initCT)
+  // const ct = parseFloat(dom.circleTime.value).toFixed(1)
+  circleTime = parseFloat(`${initCT[0]}${initCT[1]}.${initCT[2]}`)
+
+  dom.circleTimeOut.textContent = `${initCT[0]}${initCT[1]},${initCT[2]}s`
   count()
 }
 
@@ -119,6 +139,15 @@ listen(dom.circleTime, circleTimeHandler)
 listen(dom.breakTime, breakTimeHandler)
 listen(dom.start, changeStartHandler)
 listen(dom.stop, changeStopHandler)
+dom.fullBoxes.addEventListener('focus', (evt) => { evt.target.select() })
+dom.pcsZero.addEventListener('focus', (evt) => { evt.target.select() })
+dom.pcsInsideBox.addEventListener('focus', (evt) => { evt.target.select() })
+dom.pcsInActBox.addEventListener('focus', (evt) => { evt.target.select() })
+dom.scrap.addEventListener('focus', (evt) => { evt.target.select() })
+dom.circleTime.addEventListener('focus', (evt) => { evt.target.select() })
+dom.breakTime.addEventListener('focus', (evt) => { evt.target.select() })
+dom.start.addEventListener('focus', (evt) => { evt.target.select() })
+dom.stop.addEventListener('focus', (evt) => { evt.target.select() })
 
 
 dom.start.addEventListener('click', () => {
@@ -134,6 +163,7 @@ const setScrapsHandler = () => {
   const { diff } = count()
 
   dom.scrap.value = diff
+  scrap = diff
   dom.out.innerHTML = ""
   count()
 
@@ -188,7 +218,19 @@ const holdEvent = (evt, cb) => {
   }, 500)
 }
 
+dom.circleTimeOut.addEventListener('click', () => {
+  dom.circleTime.focus()
+  dom.circleTime.value = ''
 
+})
+dom.circleTime.addEventListener('focus', () => {
+  dom.circleTimeOut.classList.add("red")
+
+})
+dom.circleTime.addEventListener('blur', () => {
+
+  dom.circleTimeOut.classList.remove("red")
+})
 dom.scrap.addEventListener('touchstart', (e) => holdEvent(e, setScrapsHandler))
 dom.breakTime.addEventListener('touchstart', e => holdEvent(e, setBreakTimeHandler))
 dom.start.addEventListener('touchstart', (e) => holdEvent(e, setStartHandler))
@@ -197,8 +239,3 @@ dom.stop.addEventListener('touchstart', (e) => holdEvent(e, setStopHandler))
 
 
 count()
-window.onload = () => {
-
-  alert(`windowW:${window.innerWidth}`)
-  alert(`windowWa:${window.width}`)
-}

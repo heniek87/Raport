@@ -1,14 +1,219 @@
-*, ::after, ::before {
+*, ::after, ::before, h1, h2 {
   box-sizing: border-box;
   margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
 }
 
 body {
-  background-color: rgb(17, 24, 100);
+  background-color: #111864;
   min-width: 100vw;
   min-height: 100vh;
   box-shadow: inset 0 0 100px 0 black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  top: 27px;
+  padding: 0 21px;
+}
+.container > * {
+  width: 100%;
+}
+.container input[type=time] {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  max-width: 100px;
+}
+.container input[type=time]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+.container .title {
+  font-size: 32px;
+  color: #ABABAB;
+  text-align: center;
+}
+.container .times-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 41px;
+}
+.container .times-content * {
+  color: #D1D1D1;
+  font-size: 26px;
+}
+.container .timer-box, .container .boxes-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 14px;
+  justify-content: space-evenly;
+}
+.container .timer-box.boxes-row, .container .boxes-row.boxes-row {
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.container .timer-box .circle-timer > svg text, .container .boxes-row .circle-timer > svg text {
+  fill: #000;
+  font-size: 26px;
+}
+.container .timer-box .circle-timer > svg text.red, .container .boxes-row .circle-timer > svg text.red {
+  fill: #F00;
+}
+.container .closed-box, .container .open-box, .container .scrap-container {
+  width: 88px;
+  height: 94px;
+  background-image: url("../imgs/box-closed.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: grid;
+  align-content: center;
+  top: 10px;
+  position: relative;
+}
+.container .closed-box.open-box, .container .open-box.open-box, .container .scrap-container.open-box {
+  background-image: url("../imgs/box-open.png");
+  width: 110px;
+}
+.container .closed-box .title, .container .open-box .title, .container .scrap-container .title {
+  position: absolute;
+  font-size: 19px;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  color: #FFF;
+  top: 100%;
+}
+.container .closed-box input, .container .open-box input, .container .scrap-container input {
+  width: 100%;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.container .pause-scrap-out-row {
+  margin-top: 50px;
+  color: #ABABAB;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: 2fr 2fr;
+  align-items: center;
+  justify-items: center;
+}
+.container .pause-scrap-out-row .pause-container {
+  position: relative;
+  grid-area: 1/1/2/2;
+}
+.container .pause-scrap-out-row .pause-container svg text {
+  fill: #000;
+  font-size: 20px;
+}
+.container .pause-scrap-out-row .pause-container .texts {
+  position: absolute;
+  width: 100%;
+  color: #000;
+  text-align: center;
+  top: 38px;
+  transform: translate(-1px, 0);
+}
+.container .pause-scrap-out-row .pause-container .texts > * {
+  font-weight: 700;
+  font-size: 18px;
+}
+.container .pause-scrap-out-row .pause-container .texts input {
+  font-weight: 700;
+  text-align: right;
+  font-size: 18px;
+  color: #000;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 34px;
+}
+.container .pause-scrap-out-row .scrap-container {
+  width: 110px;
+  height: 113px;
+  background-image: url("../imgs/kosz.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  grid-area: 2/1/3/2;
+  justify-content: center;
+}
+.container .pause-scrap-out-row .scrap-container > * {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-weight: 400;
+  transform: translate(-3px, 11px);
+}
+.container .pause-scrap-out-row .scrap-container h2 {
+  font-size: 18px;
+}
+.container .pause-scrap-out-row .out {
+  grid-area: 1/2/3/3;
+  background-image: url("../imgs/paper.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 165px;
+  height: 187px;
+}
+.container .pause-scrap-out-row .out .before {
+  display: flex;
+  width: 105px;
+  height: 89px;
+  transform: translate(25px, 25px);
+  align-items: center;
+  flex-direction: column;
+}
+.container .pause-scrap-out-row .out .before div {
+  color: #000F93;
+  font-family: "MV Boli", sans-serif;
+  font-size: 32px;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  font-style: italic;
+}
+.container .pause-scrap-out-row .out .after {
+  color: #000F93;
+  transform: translate(-40px, 6px) rotate(4deg);
+}
+.container .pause-scrap-out-row .out .after > * {
+  text-align: right;
+  font-family: "MV Boli", sans-serif;
+}
+.container .pause-scrap-out-row .out .after .all-pcs {
+  font-size: 36px;
+}
+.container .pause-scrap-out-row .out .after .diff {
+  font-size: 30px;
+  transform: translate(-10px, -22px);
+  color: #006F18;
+}
+.container .pause-scrap-out-row .out .after .diff.red {
+  color: #ED2024;
+}
+
+#circleTime {
+  position: absolute;
+  top: 180px;
+  width: 0;
+  opacity: 0;
 }
 
 .content {
@@ -36,10 +241,10 @@ body {
   color: white;
   background-color: transparent;
   border: none;
+  outline: none;
   border-bottom: 1px solid gray;
   font-size: 18px;
   text-align: center;
-  outline: none;
 }
 .content ul li input[type=time]::-webkit-calendar-picker-indicator {
   display: none;
@@ -49,4 +254,7 @@ body {
   width: 150px;
   min-height: 200px;
   color: whitesmoke;
+}
+.content .out pre {
+  font-family: "MV Boli", "Courier New", Courier, monospace;
 }/*# sourceMappingURL=main.css.map */
